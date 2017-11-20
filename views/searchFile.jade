@@ -1,0 +1,41 @@
+
+div.container
+  div.container
+    div.form-group.control-label
+      h5 Пошук
+    form.form-horizontal
+        div.row
+            div.col-lg-6
+                div.form-group
+                    label.col-md-0.control-label Тип роботи
+                    div.col-md-13
+                        select.form-control
+                            option.form-control Назвою
+                            option.form-control Автором
+
+                div.form-group
+                  label.col-md-0.control-label Курс
+                  div.col-md-13
+                      select.form-control
+                          -for(var i=0;i<array.length;i++) {
+                          option.form-control #{array[i].name}
+                          -}
+
+            div.col-lg-6
+               div.form-group
+                   label.col-md-0.control-label Предмет
+                   div.col-md-13
+                       select.form-control
+                           option.form-control Назвою
+                           option.form-control Автором
+
+               div.form-group
+                   label.col-md-0.control-label Варіант
+                   div.col-md-13
+                       select.form-control
+                           option.form-control Назвою
+                           option.form-control Автором
+
+     button(name="singlebutton")#singlebutton.btn.btn-default.pull-right Search
+
+
