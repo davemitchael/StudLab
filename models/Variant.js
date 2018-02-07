@@ -1,15 +1,14 @@
 const mongoose = require('../libs/dbConnections'),Schema = mongoose.Schema;
 
-let courseSchema = new Schema({
-    course : {
+let variantSchema = new Schema({
+    variantNumber: {
         type: Number,
         required : true
     },
     created : {
         type: Date,
-        default: Date.now
+        default: Date.now()
     }
-
 });
 
-exports.Course = mongoose.model('Course',courseSchema);
+exports.Variant = mongoose.model('Variant',variantSchema);

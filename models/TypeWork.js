@@ -1,6 +1,6 @@
 const mongoose = require('../libs/dbConnections'),Schema = mongoose.Schema;
 
-let schema = new Schema({
+let typeWorkSchema = new Schema({
     name : {
         type: String,
         required : true
@@ -12,4 +12,4 @@ let schema = new Schema({
 
 });
 
-exports.Type = mongoose.model('Type',schema);
+exports.TypeWork = mongoose.model('TypeWork',typeWorkSchema);

@@ -1,20 +1,42 @@
 const express = require('express');
 const router = express.Router();
-const NumberOfCourse = require('../models/NumberOfCourse').NumberOfCourse;
-
-let numberOfCourse = new NumberOfCourse();
+const Course  = require('../models/Course').Course;
+const typeWork = require('../models/TypeWork').TypeWork;
+const variants = require('../models/Variant').Variant;
+//const NumberOfCourse = require('../models/NumberOfCourse').NumberOfCourse;
+//let numberOfCourse = new NumberOfCourse();
 
 router.get('/',function (req,res,next) {
-;
-    NumberOfCourse.find((err,data)=>{
-      if (err) next(err);
-      res.render('index',{title:'Hello',array:data});
-      //res.render('index',{array: data});
-   });
+    res.header('Access-Control-Allow-Origin', "*");
+
+    let options = {};
+
+    Course.find({},{course:1},(err,data)=>{
+        if(err){ next(err); }
+        options.courses = data;
+    }).then(()=>{
+        typeWork.find({},{name:1},(err,data)=>{
+            if(err){ next(err); }
+            options.typeWorks = data;
+        }).then(()=>{
+            variants.find({},{variantNumber:1},(err,data)=>{
+                if(err){ next(err); }
+                options.variants = data;
+
+            }).then(()=>{
+                res.send(options);
+            })
+        })
+    });
 
 
-   //res.render('index',{title:"Hello"});
-  // res.render('index',{lol: "it works"});
 });
+
+
+function getAllOptions(){
+
+
+}
+
 
 module.exports = router;
