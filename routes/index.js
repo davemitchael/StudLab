@@ -1,42 +1,40 @@
 const express = require('express');
 const router = express.Router();
-const Course  = require('../models/Course').Course;
-const typeWork = require('../models/TypeWork').TypeWork;
-const variants = require('../models/Variant').Variant;
-//const NumberOfCourse = require('../models/NumberOfCourse').NumberOfCourse;
-//let numberOfCourse = new NumberOfCourse();
+
+const IndexController = require('../routesControllers/indexController');
+
 
 router.get('/',function (req,res,next) {
     res.header('Access-Control-Allow-Origin', "*");
-
-    let options = {};
-
-    Course.find({},{course:1},(err,data)=>{
-        if(err){ next(err); }
-        options.courses = data;
-    }).then(()=>{
-        typeWork.find({},{name:1},(err,data)=>{
-            if(err){ next(err); }
-            options.typeWorks = data;
-        }).then(()=>{
-            variants.find({},{variantNumber:1},(err,data)=>{
-                if(err){ next(err); }
-                options.variants = data;
-
-            }).then(()=>{
-                res.send(options);
-            })
-        })
+    IndexController.getBasicOptionsForSearch().then(options=>{
+        res.send(options);
+    }, err =>{
+       next(err);
     });
+});
 
+router.get('/:course',function (req,res,next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    IndexController.getSubjectsByCourse(req.params.course).then(subjects=>{
+        res.send(subjects);
+    }, err=>{next(err)});
 
 });
 
+router.get('/searchTasks/:subject/:variant',function (req,res,next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    IndexController.searchCompletedTasks({subject:req.params.subject,variant:req.params.variant}).then(tasks=>{
+        res.send(tasks);
+    },err=>{next(err)});
+});
 
-function getAllOptions(){
 
-
-}
-
+router.get('/searchTasks/:subject/',function (req,res,next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    IndexController.searchCompletedTasks({subject:req.params.subject}).then(tasks=>{
+        res.send(tasks);
+    },err=>{next(err)});
+});
 
 module.exports = router;
+
