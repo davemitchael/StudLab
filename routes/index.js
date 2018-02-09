@@ -21,20 +21,6 @@ router.get('/:course',function (req,res,next) {
 
 });
 
-router.get('/searchTasks/:subject/:variant',function (req,res,next) {
-    res.header('Access-Control-Allow-Origin', "*");
-    IndexController.searchCompletedTasks({subject:req.params.subject,variant:req.params.variant}).then(tasks=>{
-        res.send(tasks);
-    },err=>{next(err)});
-});
-
-
-router.get('/searchTasks/:subject/',function (req,res,next) {
-    res.header('Access-Control-Allow-Origin', "*");
-    IndexController.searchCompletedTasks({subject:req.params.subject}).then(tasks=>{
-        res.send(tasks);
-    },err=>{next(err)});
-});
 
 module.exports = router;
 

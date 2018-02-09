@@ -3,11 +3,7 @@ mongoose.set("debug",true);
 class BaseController {
     constructor(){}
 
-  open(callback){
-        this.schema.mongoose.connection.on('open',callback);
-    }
     _find(whatFind = {},options = {}){
-        //this.open();
         return new Promise((resolve, reject) => {
             this.schema.find(whatFind,options,(err,data)=>{
                 if(err)  reject(err);
@@ -16,8 +12,33 @@ class BaseController {
         })
     }
 
-    closeConnection(){
-        return mongoose.disconnect();
+    _count(parameters){
+        return new Promise((resolve, reject) => {
+            this.schema.find(parameters).count((err,count)=>{
+                if(err)  reject(err);
+                resolve(count);
+            })
+        })
+    }
+
+    _limit(parameters,limit){
+        return new Promise((resolve, reject) => {
+            this.schema.find(parameters).limit(+limit).then(tasks => {
+                resolve(tasks);
+            }, err => {
+                reject(err)
+            })
+        })
+    }
+
+    _limitAndSkip(parameters,limit){
+        return new Promise((resolve, reject) => {
+            this.schema.find(parameters).skip(+limit-5).limit(+limit).then(tasks => {
+                resolve(tasks);
+            }, err => {
+                reject(err)
+            })
+        })
     }
 
 }

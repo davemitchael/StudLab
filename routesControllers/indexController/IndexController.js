@@ -42,16 +42,6 @@ class IndexController {
 
     }
 
-    static searchCompletedTasks(searchParams){
-        return new Promise((resolve, reject) => {
-                controllers.CompletedTasks._find(searchParams).then(tasks => {
-                    resolve(tasks);
-                }, err => {
-                    reject(err)
-                })
-
-        })
-    }
 }
 
 
