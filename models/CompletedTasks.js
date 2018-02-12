@@ -9,6 +9,10 @@ let completedTasksSchema = new Schema({
         type: String,
         required: true
     },
+    theme: {
+        type: String,
+        required: true
+    },
     subject:{
         type: String,
         required: true
