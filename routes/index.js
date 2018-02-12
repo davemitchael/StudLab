@@ -4,12 +4,29 @@ const router = express.Router();
 const IndexController = require('../routesControllers/indexController');
 
 
-router.get('/',function (req,res,next) {
+router.get('/courses',function (req,res,next) {
     res.header('Access-Control-Allow-Origin', "*");
-    IndexController.getBasicOptionsForSearch().then(options=>{
-        res.send(options);
+    IndexController.getCourses().then(courses=>{
+        res.send(courses);
     }, err =>{
-       next(err);
+        next(err);
+    });
+});
+
+router.get('/typeWorks',function (req,res,next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    IndexController.getTypeWorks().then(typeworks=>{
+        res.send(typeworks);
+    }, err =>{
+        next(err);
+    });
+});
+router.get('/variants',function (req,res,next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    IndexController.getVariants().then(variants=>{
+        res.send(variants);
+    }, err =>{
+        next(err);
     });
 });
 

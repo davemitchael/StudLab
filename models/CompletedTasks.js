@@ -5,7 +5,10 @@ let completedTasksSchema = new Schema({
         type: String,
         required : true,
     },
-
+    typeWork: {
+        type: String,
+        required: true
+    },
     subject:{
         type: String,
         required: true

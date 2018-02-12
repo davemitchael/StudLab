@@ -42,6 +42,30 @@ class IndexController {
 
     }
 
+    static getTypeWorks(){
+        return new Promise((resolve, reject) => {
+            controllers.TypeWork._find().then(types=>{
+                resolve(types);
+            },err=>{reject(err)})
+        })
+    }
+
+    static getVariants(){
+        return new Promise((resolve, reject) => {
+            controllers.Variant._find().then(variants=>{
+                resolve(variants);
+            },err=>{reject(err)})
+        })
+    }
+
+    static getCourses(){
+        return new Promise((resolve, reject) => {
+            controllers.Course._find().then(courses=>{
+                resolve(courses);
+            },err=>{reject(err)})
+        })
+    }
+
 }
 
 
