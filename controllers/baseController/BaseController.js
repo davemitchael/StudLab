@@ -41,6 +41,22 @@ class BaseController {
         })
     }
 
+    _save(){
+        return new Promise((resolve, reject) => {
+            this.schema.save().then(value => resolve(value), err => reject(err));
+        })
+    }
+
+    _findOne(whatFind = {},options = {}) {
+        return new Promise((resolve, reject) => {
+            this.schema.findOne(whatFind,options,(err,data)=>{
+                if(err)  reject(err);
+                resolve(data);
+            })
+        })
+    }
+
+
 }
 
 module.exports = BaseController;
