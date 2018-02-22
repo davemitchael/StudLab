@@ -25,7 +25,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({secret:"wteqwqrqj113jhuh114ag14bwf", resave:false,saveUninitialized:true}));
-app.use(cors());
+app.use(cors({origin: [
+    "http://localhost:4200"
+    ], credentials: true}));
 //app.use(express.static(path.join(__dirname, '/libs')));
 //app.use(express.static(path.join(__dirname, '/models')));
 
