@@ -1,3 +1,3 @@
 let CompletedTasks = require("./CompletedTasks");
 
-module.exports = new CompletedTasks();
+module.exports = CompletedTasks;

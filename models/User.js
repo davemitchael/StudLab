@@ -15,11 +15,13 @@ let userSchema = new Schema({
     },
     fotoUrl: {
         type : String,
-        required: true
+        required: false,
+        default: ""
     },
     countOfUploadTask: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
     created : {
         type: Date,

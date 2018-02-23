@@ -6,8 +6,8 @@ class BaseController {
     _find(whatFind = {},options = {}){
         return new Promise((resolve, reject) => {
             this.schema.find(whatFind,options,(err,data)=>{
-                if(err)  reject(err);
-                resolve(data);
+                if(err) return reject(err);
+                return resolve(data);
             })
         })
     }
@@ -23,11 +23,10 @@ class BaseController {
 
     _limit(parameters,limit){
         return new Promise((resolve, reject) => {
-            this.schema.find(parameters).limit(+limit).then(tasks => {
-                resolve(tasks);
-            }, err => {
-                reject(err)
-            })
+            this.schema.find(parameters , (err, success) => {
+                if (err) return reject(err);
+                return resolve(success);
+            }).limit(+limit)
         })
     }
 
@@ -43,15 +42,18 @@ class BaseController {
 
     _save(){
         return new Promise((resolve, reject) => {
-            this.schema.save().then(value => resolve(value), err => reject(err));
+            this.schema.save((err, success) => {
+                if (err) return reject(err);
+                return resolve(success);
+            });
         })
     }
 
     _findOne(whatFind = {},options = {}) {
         return new Promise((resolve, reject) => {
             this.schema.findOne(whatFind,options,(err,data)=>{
-                if(err)  reject(err);
-                resolve(data);
+                if(err) return reject(err);
+                return resolve(data);
             })
         })
     }
