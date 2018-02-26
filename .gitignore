@@ -56,3 +56,14 @@ typings/
 
 # dotenv environment variables file
 .env
+<<<<<<< HEAD
+=======
+*.pdf
+*.jpg
+*.docx
+.idea/workspace.xml
+.idea/workspace.xml
+.idea/workspace.xml
+*.xml
+.idea/workspace.xml
+>>>>>>> develop
