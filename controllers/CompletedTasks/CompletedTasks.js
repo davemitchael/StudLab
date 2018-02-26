@@ -4,7 +4,7 @@ const BaseController = require('../baseController');
 class CompletedTasks extends BaseController {
     constructor(_task) {
         super();
-        this.schema = (_task)? new CompletedTasks(_task) : completedTasks;
+        this.schema = (_task)? new completedTasks(_task) : completedTasks;
     }
 
 }

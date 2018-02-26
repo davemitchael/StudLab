@@ -4,9 +4,9 @@ const async = require('async');
 class SearchTaskController {
     constructor(){}
 
-    static searchCompletedTasks(searchParams,_limit){
+    static searchCompletedTasks(searchParams,_skip){
         return new Promise((resolve, reject) => {
-            controllers.CompletedTasks._limitAndSkip(searchParams,_limit).then(tasks => {
+            controllers.CompletedTasks._limitAndSkip(searchParams, _skip - 5, 5).then(tasks => {
                 resolve(tasks);
             }, err => {
                 reject(err)

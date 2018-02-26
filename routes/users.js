@@ -40,24 +40,31 @@ router.post('/logout',function (req, res, next) {
 });
 
 
- router.put('/changeuserdata/name', function (req,res, next) {
-     userController.changeUserData(req.session.user._id, {name: req.body.name})
+router.put('/changeuserdata/name', function (req,res, next) {
+    userController.changeUserData(req.session.user._id, {name: req.body.name}).then(()=>{
+        res.status(200).send({message: "User successfully changed"});
+    }, err => {
+        res.status(500).send({message: err});
+    })
+});
+
+let uploadIcons =  userController.getUploadFor('icons');
+ router.put('/changeuserdata', uploadIcons, function (req,res, next) {
+     try{
+         if(req.body.name !== req.session.user.name){
+             userController.changeUserData(req.session.user._id, {name: req.body.name});
+         }
+         if(req.file) {
+             userController.changeUserData(req.session.user._id, {fotoUrl:`${req.file.path}`});
+         }
+         res.status(200).send({message: "User successfully changed"});
+     }
+     catch (e) {
+         res.status(500).send({message: e});
+     }
+
  });
 
- router.put('/changeuserdata/icon', function (req,res, next) {
-        let upload =  userController.getUploadFor('icons');
-        upload(req, res, function (err) {
-            if(err) {
-                return res.status(501).json({error:err});
-            }
-           userController.changeUserData(req.session.user._id, {fotoUrl:`${req.file.path}`}).then((user) => {
-               res.status(200).send({message: "User successfully changed"});
-           }, err => {
-               res.status(500).send({message: err});
-           })
-
-        });
-    });
 
  router.get('/userIcon/**', function (req, res, next) {
      if(req.session.user){

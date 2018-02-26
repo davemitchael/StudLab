@@ -25,25 +25,20 @@ router.get('/download/:id', function (req, res, next) {
     })
 });
 
-router.post('/addTask',function (req, res, next) {
-
-    let upload =  TaskController.getUploadFor('tasks');
-    if (req.body.task) {
-        TaskController.addNewTask(req.body.task).then((user) => {
-            user.set({url: req.file.path});
-            user.save();
+let uploadTask =  TaskController.getUploadFor('tasks');
+router.post('/addTask', uploadTask, function (req, res, next) {
+        TaskController.addNewTask({
+            name: req.body.name,
+            typeWork: req.body.typeWork,
+            theme: req.body.theme,
+            subject: req.body.subject,
+            url:  req.file.path,
+            variant: +req.body.variant
+        }).then(() => {
             res.status(200).send({message: "Task successfully added"});
         }, err => {
             res.status(500).send({message: err});
         });
-    }
-    upload(req, res, function (err) {
-        if(err) {
-            return res.status(501).json({error:err});
-        }
-    });
-
-
 });
 
 module.exports = router;
